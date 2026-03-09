@@ -1,35 +1,26 @@
 <template>
-    <section>
-        <h2>父组件</h2>
-        <button @click="toggleFromFather">Toggle From Father</button>
-        <Child :title="title" :sayHello="sayHelloFromParent" ref="childRef" />
-    </section>
+    <div class="parent">
+        <h3>父组件</h3>
+        <div>用户信息：</div>
+        <pre>{{ JSON.stringify(userInfo, null, 2) }}</pre>
+
+        <!-- 传递整个对象 -->
+        <UserInfoInput v-model:user-info="userInfo" />
+
+        <!-- 或者分别传递对象属性 -->
+        <UserInfoInput v-model:name="userInfo.name" v-model:age="userInfo.age" v-model:email="userInfo.email" />
+    </div>
 </template>
 
-<script lang="ts" setup>
-import { onMounted, ref } from 'vue';
-import Child from './Child.vue';
+<script setup>
+import { ref } from 'vue'
+import UserInfoInput from '@/components/newbie/UserInfoInput.vue'
 
-// state
-const title = ref<string>('Banner');
-// function
-function sayHelloFromParent() {
-    console.log('Hello from parent')
-}
-// ref
-const childRef = ref<null | {
-    hidden: Boolean,
-    sayHelloFromChild: Function,
-}>(null);
-onMounted(() => {
-    console.log('hidden from childRef', childRef.value?.hidden);
-    childRef.value?.sayHelloFromChild();
-});
-function toggleFromFather() {
-    if (childRef.value) {
-        childRef.value.hidden = !childRef.value.hidden;
-    }
-}
+// 父组件的对象数据
+const userInfo = ref({
+    name: '张三',
+    age: 25,
+    email: 'zhangsan@example.com',
+    address: '北京市'
+})
 </script>
-
-<style scoped></style>
