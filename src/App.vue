@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import ApiDesigner from './view/ApiDesigner.vue';
+import Father from './components/newbie/Father.vue';
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <ApiDesigner/>
+      <Father />
     </div>
   </header>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>
