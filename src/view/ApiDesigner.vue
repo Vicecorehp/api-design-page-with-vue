@@ -1,62 +1,102 @@
+<template>
+  <el-drawer v-model="isDrawerVisible" size="60%" resizable>
+    <template #header>
+      <h3>The Saltwater Room(Instrumental) - Owl City</h3>
+    </template>
+
+    <template #default>
+      <el-row :style="{ marginBottom: '20px' }">
+        <el-col :span="12">
+          <el-button type="primary" @click="onAddBtnClick">Add</el-button>
+        </el-col>
+      </el-row>
+
+      <el-table
+        :data="apiTableData"
+        :border="true"
+        :preserve-expanded-content="preserveExpanded"
+        style="width: 100%; height: 100%"
+      >
+        <el-table-column type="expand">
+          <template #default="props">
+            <ApiDetail :detailData="props.row" />
+          </template>
+        </el-table-column>
+        <el-table-column label="名称" prop="name" />
+        <el-table-column label="方法" prop="method" />
+        <el-table-column label="路径" prop="path" />
+        <el-table-column label="操作" fixed="right">
+          <template #default>
+            <el-button link size="small" type="primary" @click="onEditBtnClick">编辑</el-button>
+            <el-button link size="small" type="primary" @click="onDeleteBtnClick">删除</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </template>
+    <template #footer>
+      <el-row>
+        <el-col :span="12">
+          <el-button type="primary">Save</el-button>
+          <el-button type="primary" @click="onCancelBtnClick">Cancel</el-button>
+        </el-col>
+      </el-row>
+    </template>
+  </el-drawer>
+</template>
+
 <script lang="ts" setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
+import type { ApiInfo } from '@/interface/ApiDefinition.ts'
+import ApiDetail from '@/view/ApiDetail.vue'
 
-import type { CollapseModelValue } from 'element-plus'
+const isDrawerVisible = ref(true)
 
-const activeNames = ref(['1'])
-const handleChange = (val: CollapseModelValue) => {
-  console.log(val)
+const preserveExpanded = ref(true)
+
+const apiTableData = ref<ApiInfo[]>([])
+
+function getDefaultData() {
+  apiTableData.value = [
+    {
+      name: 'name1',
+      version: '1.0',
+      uuid: 'uuid-test',
+      path: '/test/01',
+      method: 'GET',
+      descriptionCn: '中文',
+      descriptionEn: 'English',
+      aliasEn: '中文',
+      aliasCn: 'English',
+    },
+    {
+      name: 'name2',
+      version: '1.0',
+      uuid: 'uuid-test',
+      path: '/test/02',
+      method: 'POST',
+      descriptionCn: '中文',
+      descriptionEn: 'English',
+      aliasEn: '中文',
+      aliasCn: 'English',
+    },
+  ]
+}
+
+onMounted(() => {
+  getDefaultData()
+})
+
+const onAddBtnClick = () => {}
+
+const onPreviewBtnClick = () => {}
+
+const onEditBtnClick = () => {}
+
+const onDeleteBtnClick = () => {}
+
+const onCancelBtnClick = () => {
+  isDrawerVisible.value = false
 }
 </script>
 
-
-<template>
-  <div class="demo-collapse">
-    <el-collapse v-model="activeNames" @change="handleChange">
-      <el-collapse-item title="Consistency" name="1">
-        <div>
-          Consistent with real life: in line with the process and logic of real
-          life, and comply with languages and habits that the users are used to;
-        </div>
-        <div>
-          Consistent within interface: all elements should be consistent, such
-          as: design style, icons and texts, position of elements, etc.
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Feedback" name="2">
-        <div>
-          Operation feedback: enable the users to clearly perceive their
-          operations by style updates and interactive effects;
-        </div>
-        <div>
-          Visual feedback: reflect current state by updating or rearranging
-          elements of the page.
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Efficiency" name="3">
-        <div>
-          Simplify the process: keep operating process simple and intuitive;
-        </div>
-        <div>
-          Definite and clear: enunciate your intentions clearly so that the
-          users can quickly understand and make decisions;
-        </div>
-        <div>
-          Easy to identify: the interface should be straightforward, which helps
-          the users to identify and frees them from memorizing and recalling.
-        </div>
-      </el-collapse-item>
-      <el-collapse-item title="Controllability" name="4">
-        <div>
-          Decision making: giving advice about operations is acceptable, but do
-          not make decisions for the users;
-        </div>
-        <div>
-          Controlled consequences: users should be granted the freedom to
-          operate, including canceling, aborting or terminating current
-          operation.
-        </div>
-      </el-collapse-item>
-    </el-collapse>
-  </div>
-</template>
+<style scoped></style>
