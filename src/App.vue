@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import ApiDesigner from './view/ApiDesigner.vue';
+import ApiCardList from '@/view/ApiCardList.vue'
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <ApiDesigner/>
+      <ApiCardList/>
     </div>
   </header>
 </template>
