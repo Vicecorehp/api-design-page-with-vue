@@ -12,6 +12,7 @@
     "format": "prettier --write --experimental-cli src/"
   },
   "dependencies": {
+    "@antv/g6": "^5.0.48",
     "element-plus": "^2.13.4",
     "vue": "^3.5.29"
   },
