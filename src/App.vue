@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import ApiDesigner from './view/ApiDesigner.vue';
+import NetHealthOverview from '@/components/NetHealthOverview.vue'
 </script>
 
 <template>
   <header>
     <div class="wrapper">
-      <ApiDesigner/>
+      <NetHealthOverview/>
     </div>
   </header>
 </template>
