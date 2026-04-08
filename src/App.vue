@@ -2,7 +2,7 @@
 import AdvancedJsEditor from '@/view/AdvancedJsEditor.vue'
 import { ref } from 'vue'
 
-const editorRef = ref<AdvancedJsEditor>(null)
+const editorRef = ref<InstanceType<typeof AdvancedJsEditor>>()
 const loadExample = () => {
   const exampleCode = `// 示例：斐波那契数列
 const fibonacci = (n) => {
@@ -20,7 +20,9 @@ for (let i = 0; i < 10; i++) {
 
 const saveCode = () => {
   const code = editorRef.value?.getValue()
-  localStorage.setItem('saved-code', code)
+  if (code != null) {
+    localStorage.setItem('saved-code', code)
+  }
   alert('代码已保存到本地')
 }
 
